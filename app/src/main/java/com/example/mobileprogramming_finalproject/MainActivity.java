@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Button searchButton;
     private TextView resultTextView;
 
-    private static final String API_KEY = "57622bb9449448fbba7f";
+    private static final String API_KEY = "API_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
