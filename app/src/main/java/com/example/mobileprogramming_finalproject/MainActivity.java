@@ -41,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchFood();
+                resultTextView.setText("로딩 중...");
                 resultTextView.setVisibility(View.VISIBLE);
+                searchFood();
             }
         });
     }
@@ -50,27 +51,24 @@ public class MainActivity extends AppCompatActivity {
     private void searchFood() {
         String foodName = foodEditText.getText().toString().trim();
 
-        // API 요청을 위한 URL 생성
         String requestUrl = "https://openapi.foodsafetykorea.go.kr/api/" + API_KEY + "/I2790/xml/1/5/DESC_KOR=" + foodName;
 
-        // Volley를 사용하여 API에 요청
         StringRequest stringRequest = new StringRequest(Request.Method.GET, requestUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // 응답을 처리하는 코드 작성
                         parseXmlResponse(response);
+                        resultTextView.setVisibility(View.VISIBLE);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // 에러 처리 코드 작성
                         resultTextView.setText("에러 발생: " + error.getMessage());
+                        resultTextView.setVisibility(View.INVISIBLE);
                     }
                 });
 
-        // Volley 요청을 큐에 추가
         Volley.newRequestQueue(this).add(stringRequest);
     }
 
